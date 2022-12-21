@@ -1,0 +1,15 @@
+{
+  "name": "player",
+  "version": "1.0.0",
+  "description": "simple local video player",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "deploy":"node ./scripts/deploy"
+  },
+  "author": "Mike Meloy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
