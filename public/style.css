@@ -1,26 +1,40 @@
+:root {
+  --primary: #305043;
+  --secondary: #B1B887;
+  --tertiary: #85B074;
+  --highlight:#8CB48C;
+  --white: #fff;
+  --black:#000;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(182, 182, 182);
+  background-color: var(--secondary);
+  font-size: 16px;
 }
 *,
 ::after,
 ::before {
+  font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+  transition: all 4s;
 }
 
 video {
-  position:sticky;
-  top:0;
+  position: sticky;
+  top: 0;
   width: calc(100vw - 17px);
   max-height: 75vh;
-  opacity: .7;
+  opacity: 0.7;
   display: none;
 }
 
-input[type=range]{
-  background-color:red;
+input[name="runtime"] {
+  position: sticky;
+  bottom: 10px;
+  width: 90vw;
 }
 
 #list {
@@ -32,29 +46,33 @@ input[type=range]{
 
 #list button {
   display: flex;
+  font-size: 1rem;
   cursor: pointer;
   overflow: hidden;
   border: none;
-  margin: 2px;
+  margin: 8px 2px;
   padding: 15px;
-  background-color: rgb(102, 103, 104);
-  color: #ffffff;
   border-radius: 6px;
   text-align: left;
   white-space: nowrap;
   width: 100%;
+  border: 1px solid var(--primary);
+  border-top: 1px solid rgb(25, 25, 112, 0.4);
+  background-color: var(--highlight);
+  box-shadow: 5px 5px 5px var(--tertiary);
+  color: var(--secondary);
 }
 
 #list button p {
   width: 10%;
-  background-color: #ffffff;
+  background-color:var(--white);
 }
 
 #list button div {
   pointer-events: none;
 }
 
-.wrapper{
+.wrapper {
   display: inline-block;
   overflow: hidden;
 }

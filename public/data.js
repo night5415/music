@@ -18,6 +18,12 @@ const Files = [
     root: "Chill",
     path: "BOTW-Melody",
     ext: "mp4",
+    colors: {
+      primary: "#305043",
+      secondary: "#B1B887",
+      tertiary: "#85B074",
+      highlight: "#8CB48C",
+    },
   },
   {
     root: "Chill",
@@ -84,6 +90,18 @@ const Files = [
     path: "WoW-Night Elf Music",
     ext: "mp4",
   },
+
+  {
+    root: "Chill",
+    path: "Tron Music",
+    ext: "mp4",
+  },
+  {
+    root: "Chill",
+    path: "Tron Ambience",
+    ext: "mp4",
+  },
+
   {
     root: "Lofi",
     path: "Hollow Knight",
@@ -108,13 +126,12 @@ const Files = [
     root: "Lofi",
     path: "Lofi of the Wild",
     ext: "mp4",
-  }, 
+  },
   {
     root: "Lofi",
     path: "Nintendo Synthwave",
     ext: "mp3",
   },
 ];
-
 
 export default Files;

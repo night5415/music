@@ -1,11 +1,26 @@
 import Files from "./data.js";
 
-const video = document.querySelector("video"),
+const { style: variables } = document.querySelector(":root"),
+  video = document.querySelector("video"),
   list = document.getElementById("list"),
-  volumeControl = document.querySelector("input[type=range]"),
   createElement = (el) => document.createElement(el);
 
-function createVideoLink({ root, path, ext }) {
+function setColors({
+  primary = "black",
+  secondary = "gray",
+  tertiary = "blue",
+  highlight = "gray",
+} = {}) {
+  variables.setProperty("--primary", primary);
+  variables.setProperty("--secondary", secondary);
+  variables.setProperty("--tertiary", tertiary);
+  variables.setProperty("highlight", highlight);
+}
+function sorter({ path: a }, { path: b }) {
+  return a > b ? 1 : -1;
+}
+
+function createVideoLink({ root, path, ext, colors }) {
   const btn = createElement("button"),
     wrapper = createElement("span"),
     marquee = createElement("div");
@@ -19,50 +34,41 @@ function createVideoLink({ root, path, ext }) {
   btn.appendChild(wrapper);
 
   btn.addEventListener("click", ({ target }) => {
+    const nowPlaying = document.querySelectorAll(".marquee"),
+      firstChild = target.querySelector("div");
     video.src = `./Saves/${root}/${path}.${ext}`;
-    const now = document.querySelectorAll(".marquee");
-    now.forEach((f) => f.classList.remove("marquee"));
-    let div = target.firstChild;
-    div.classList.add("marquee");
+    nowPlaying.forEach((f) => f.classList.remove("marquee"));
+    firstChild.classList.add("marquee");
+    setColors(colors);
   });
 
   return btn;
 }
 
 video.addEventListener("loadeddata", async (e) => {
-  video.play();
+  //video.play();
   try {
-    const request = await video.requestPictureInPicture();
+    await video.requestPictureInPicture();
   } catch (error) {
     console.error(error);
   }
 });
 
-video.addEventListener("enterpictureinpicture", (e) => console.log("enter"));
-video.addEventListener("leavepictureinpicture", (e) => console.log("leave"));
-volumeControl.addEventListener("change", ({ target }) =>
-  changeVolume(target.value)
-);
+video.addEventListener("leavepictureinpicture", () => {
+  const nowPlaying = document.querySelectorAll(".marquee");
+  nowPlaying.forEach((f) => f.classList.remove("marquee"));
+});
 
-Files.forEach((file) => {
+//autoplay
+video.addEventListener("ended", () => {
+  const nowPlaying = document.querySelector(".marquee"),
+    nextToPlay = nowPlaying.closest("button");
+  setTimeout(() => {
+    nextToPlay?.click();
+  }, 2000);
+});
+
+Files.sort(sorter).forEach((file) => {
   const btn = createVideoLink(file);
   list.appendChild(btn);
 });
-/**
- * Number can be positive/negative
- * @param {number} value
- */
-function setPlaySpeed(value) {
-  video.playbackRate = value ?? 1;
-}
-
-function pauseToggle() {
-  const { playbackRate } = video,
-    paused = playbackRate === 0;
-
-  video.playbackRate = paused ? 1 : 0;
-}
-
-function changeVolume(newValue) {
-  video.volume = newValue / 100;
-}
