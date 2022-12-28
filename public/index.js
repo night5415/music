@@ -2,50 +2,52 @@ import Files from "./data.js";
 
 let flip = true;
 
-const { style: variables } = document.querySelector(":root"),
-  video = document.querySelector("video"),
+const getElement = (query) => document.querySelector(query),
+  createElement = (el) => document.createElement(el),
+  video = getElement("video"),
   canvases = document.getElementsByTagName("canvas"),
-  list = document.getElementById("list"),
-  createElement = (el) => document.createElement(el);
+  list = getElement("#list"),
+  sorter = ({ path: a }, { path: b }) => (a > b ? 1 : -1),
+  playButton = getElement("svg-play"),
+  videoPath = (root, path, ext) => `./Saves/${root}/${path}.${ext}`;
 
-function setColors({
-  primary = "black",
-  secondary = "gray",
-  tertiary = "blue",
-  highlight = "gray",
-} = {}) {
-  variables.setProperty("--primary", primary);
-  variables.setProperty("--secondary", secondary);
-  variables.setProperty("--tertiary", tertiary);
-  variables.setProperty("highlight", highlight);
-}
-function sorter({ path: a }, { path: b }) {
-  return a > b ? 1 : -1;
+function init() {
+  Files.sort(sorter).forEach((file) => {
+    const btn = createVideoLink(file);
+
+    list.appendChild(btn);
+  });
 }
 
-function createVideoLink({ root, path, ext, colors }) {
+function createVideoLink({ root, path, ext }) {
   const btn = createElement("button"),
     wrapper = createElement("span"),
     marquee = createElement("div");
 
+  btn.style.backgroundImage = `url('/thumbnail/${path}.jpg')`;
+
   btn.type = "button";
-  marquee.innerHTML = path;
+  marquee.innerHTML = path?.replaceAll("-", " ");
 
   wrapper.classList.add("wrapper");
 
   wrapper.appendChild(marquee);
   btn.appendChild(wrapper);
 
-  btn.addEventListener("click", ({ target }) => {
+  btn.addEventListener("click", () => {
     const nowPlaying = document.querySelectorAll(".marquee"),
-      firstChild = target.querySelector("div");
-    video.src = `./Saves/${root}/${path}.${ext}`;
+      firstChild = btn.querySelector("div");
+
+    video.src = videoPath(root, path, ext);
     nowPlaying.forEach((f) => f.classList.remove("marquee"));
     firstChild.classList.add("marquee");
-    setColors(colors);
     setTimeout(setBackgroundImage, 3000);
   });
 
+  btn.addEventListener("mouseenter", ({target}) => {
+    target.appendChild(playButton)
+  });
+  
   return btn;
 }
 
@@ -53,7 +55,7 @@ function setBackgroundImage() {
   const arr = Array.from(canvases),
     [first, second] = flip ? arr : arr.reverse(),
     ctx = first.getContext("2d");
-  
+
   ctx.drawImage(video, 0, 0, first.width, first.height);
   first.style.opacity = 1;
   second.style.opacity = 0;
@@ -79,14 +81,9 @@ video.addEventListener("leavepictureinpicture", () => {
 video.addEventListener("ended", () => {
   const nowPlaying = document.querySelector(".marquee"),
     nextToPlay = nowPlaying.closest("button");
-  setTimeout(() => {
-    nextToPlay?.click();
-  }, 2000);
+
+  setTimeout(() => nextToPlay?.click(), 2000);
 });
 
-Files.sort(sorter).forEach((file) => {
-  const btn = createVideoLink(file);
-  list.appendChild(btn);
-});
-
+init();
 setInterval(setBackgroundImage, 15000);

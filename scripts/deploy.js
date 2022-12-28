@@ -1,13 +1,26 @@
 const fs = require("fs"),
-  public = "./public",
-  inetpub = "C:/inetpub/wwwroot/Music/Server/public",
-  moveFiles = (files) => files.forEach(moveFile);
+  path = require("path"),
+  inetpub = "C:/inetpub/wwwroot/Music/Server/",
+  baseFolder = "public";
 
-function moveFile(fileName) {
-  fs.copyFile(`${public}/${fileName}`, `${inetpub}/${fileName}`, (err) => {
+const moveFolder = (folderName) => {
+   fs.readdir(folderName, (_, files) =>
+     files.forEach((fileName) => moveFile(fileName, folderName))
+   );
+}
+
+function moveFile(fileName, folderName) {
+  const ext = path.extname(fileName);
+
+  if (!ext) {
+    moveFolder(`${folderName}/${fileName}`);
+    return;
+  }
+
+  fs.copyFile(`${folderName}/${fileName}`, `${inetpub}/${folderName}/${fileName}`, (err) => {
     if (err) throw err;
     console.log(`${fileName} was moved to ${inetpub}`);
   });
 }
 
-fs.readdir(public, (_, files) => moveFiles(files));
+moveFolder(baseFolder);

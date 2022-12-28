@@ -1,29 +1,23 @@
 const Files = [
   {
     root: "Chill",
-    path: "Zelda I",
+    path: "Zelda-I",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Zelda II",
+    path: "Zelda-II",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Zelda III",
+    path: "Zelda-III",
     ext: "mp4",
   },
   {
     root: "Chill",
     path: "BOTW-Melody",
     ext: "mp4",
-    colors: {
-      primary: "#305043",
-      secondary: "#B1B887",
-      tertiary: "#85B074",
-      highlight: "#8CB48C",
-    },
   },
   {
     root: "Chill",
@@ -32,32 +26,32 @@ const Files = [
   },
   {
     root: "Chill",
-    path: "Halo Infinite",
+    path: "Halo-Infinite",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Metriod Atmosphere 2D",
+    path: "Super-Metroid",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Metroid Atmosphere",
+    path: "Metroid-Atmosphere",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Mood Music",
+    path: "Mood-Music",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Programming Music 2",
+    path: "Programming-Music-2",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Programming Music",
+    path: "Programming-Music",
     ext: "mp4",
   },
   {
@@ -72,65 +66,80 @@ const Files = [
   },
   {
     root: "Chill",
-    path: "Studio Ghibli",
+    path: "Studio-Ghibli",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Super Guitar Bros",
+    path: "Super-Guitar-Bros",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "WoW-Lich King",
+    path: "WoW-Lich-King",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "WoW-Night Elf Music",
+    path: "Night-Elf-Music",
     ext: "mp4",
   },
 
   {
     root: "Chill",
-    path: "Tron Music",
+    path: "Tron-Music",
     ext: "mp4",
   },
   {
     root: "Chill",
-    path: "Tron Ambience",
+    path: "Tron-Ambience",
     ext: "mp4",
   },
 
   {
     root: "Lofi",
-    path: "Hollow Knight",
+    path: "Hollow-Knight",
     ext: "mp4",
   },
   {
     root: "Lofi",
-    path: "Lofi Beats",
+    path: "Sounds",
     ext: "mp4",
   },
   {
     root: "Lofi",
-    path: "Lofi Hip Hop Mix",
+    path: "Jazz",
     ext: "mp4",
   },
   {
     root: "Lofi",
-    path: "Lofi Music",
+    path: "Soft-Music",
     ext: "mp4",
   },
   {
     root: "Lofi",
-    path: "Lofi of the Wild",
+    path: "Breath-of-the-Wild",
     ext: "mp4",
   },
   {
     root: "Lofi",
-    path: "Nintendo Synthwave",
+    path: "Nintendo-Synthwave",
     ext: "mp3",
+  },
+  {
+    root: "Fun",
+    path: "I-Remember",
+    ext: "mp4",
+  },
+  {
+    root: "Fun",
+    path: "Party-Rock",
+    ext: "mp4",
+  },
+  {
+    root: "Fun",
+    path: "Thrift-Shop",
+    ext: "mp4",
   },
 ];
 

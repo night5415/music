@@ -12,6 +12,11 @@ app.get(/Lofi/, (req, res) => {
   res.sendFile(`${__dirname.replace("Server", "")}${decoded}`);
 });
 
+app.get(/Fun/, (req, res) => {
+  const decoded = decodeURI(req.url);
+  res.sendFile(`${__dirname.replace("Server", "")}${decoded}`);
+});
+
 app.use(express.static("public"));
 
 app.listen(port, () => {
