@@ -36,8 +36,10 @@ video {
   display: none;
 }
 
-svg-play{
-  opacity: 0;
+video-card {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 20%;
 }
 
 input[name="runtime"] {
@@ -64,73 +66,4 @@ canvas {
   gap: 2rem;
   width: 90vw;
   margin: 1rem auto;
-}
-
-#list button {
-  display: flex;
-  flex-grow: 1;
-  flex-basis: 20%;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column-reverse;
-  font-size: 1rem;
-  cursor: pointer;
-  overflow: hidden;
-  border: none;
-  margin: 8px 2px;
-  padding: 1rem;
-  border-radius: 6px;
-  text-align: left;
-  white-space: nowrap;
-  height: 150px;
-  border: 1px solid var(--primary);
-  border-top: 1px solid rgb(25, 25, 112, 0.4);
-  background-color: var(--primary);
-  color: var(--white);
-  background-size: cover;
-}
-
-#list button p {
-  width: 10%;
-  background-color: var(--white);
-}
-
-#list button div {
-  pointer-events: none;
-}
-
-#list button:hover {
-  animation: expand 300ms;
-  animation-fill-mode: forwards;
-}
-
-#list button:hover svg-play {
-  opacity: 0.6;
-}
-
-.wrapper {
-  overflow: hidden;
-}
-
-.marquee {
-  animation: scroll 10s linear infinite;
-  white-space: nowrap;
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(110%);
-  }
-  100% {
-    transform: translateX(-110%);
-  }
-}
-
-@keyframes expand {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.04);
-  }
 }

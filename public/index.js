@@ -20,34 +20,19 @@ function init() {
 }
 
 function createVideoLink({ root, path, ext }) {
-  const btn = createElement("button"),
-    wrapper = createElement("span"),
-    marquee = createElement("div");
-
-  btn.style.backgroundImage = `url('/thumbnail/${path}.jpg')`;
-
-  btn.type = "button";
-  marquee.innerHTML = path?.replaceAll("-", " ");
-
-  wrapper.classList.add("wrapper");
-
-  wrapper.appendChild(marquee);
-  btn.appendChild(wrapper);
-
-  btn.addEventListener("click", () => {
-    const nowPlaying = document.querySelectorAll(".marquee"),
-      firstChild = btn.querySelector("div");
-
-    video.src = videoPath(root, path, ext);
-    nowPlaying.forEach((f) => f.classList.remove("marquee"));
-    firstChild.classList.add("marquee");
+  const btn = createElement("video-card");
+  btn.src = videoPath(root, path, ext);
+  btn.backgroundImage = `url('/thumbnail/${path}.jpg')`;
+  btn.path = path;
+  btn.addEventListener("onVideoClick", ({ detail }) => {
+    video.src = detail;
     setTimeout(setBackgroundImage, 3000);
   });
 
-  btn.addEventListener("mouseenter", ({target}) => {
-    target.appendChild(playButton)
+  btn.addEventListener("mouseenter", ({ target }) => {
+    target.appendChild(playButton);
   });
-  
+
   return btn;
 }
 
