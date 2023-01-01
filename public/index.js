@@ -1,4 +1,4 @@
-import Files from "./data.js";
+import getVideoList from "./service.js";
 
 let flip = true;
 
@@ -11,8 +11,10 @@ const getElement = (query) => document.querySelector(query),
   playButton = getElement("svg-play"),
   videoPath = (root, path, ext) => `./Saves/${root}/${path}.${ext}`;
 
-function init() {
-  Files.sort(sorter).forEach((file) => {
+async function init() {
+  const files = await getVideoList();
+  
+  files.sort(sorter).forEach((file) => {
     const btn = createVideoLink(file);
 
     list.appendChild(btn);
