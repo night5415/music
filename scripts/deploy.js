@@ -1,6 +1,6 @@
 const fs = require("fs"),
   path = require("path"),
-  inetpub = "C:/inetpub/wwwroot/Music/Server/",
+  inetpub = "C:/inetpub/wwwroot/Music/Stage/",
   baseFolder = "public";
 
 const moveFolder = (folderName) => {

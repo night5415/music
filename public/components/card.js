@@ -39,7 +39,7 @@ class VideoCard extends HTMLElement {
     button.style.backgroundImage = backgroundImage;
     this.marquee.innerHTML = path?.replaceAll("-", " ");
 
-    button.addEventListener("click", () => {
+    this.addEventListener("click", () => {
       const nowPlaying = Array.from(this.parentElement.children).find(c => c.playing);
       this.dispatchEvent(this.event);
       this._playing = true;

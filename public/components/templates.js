@@ -98,4 +98,23 @@ IconTemplate.innerHTML = `
 </div>
 `;
 
-export { CardTemplate, IconTemplate };
+const ListTemplate = document.createElement(template);
+ListTemplate.innerHTML = `
+<style>
+  #list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 90vw;
+    margin: 1rem auto;
+  }
+  video-card {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 20%;
+  }
+</style>
+<div id="list"></div>
+`;
+
+export { CardTemplate, IconTemplate, ListTemplate };

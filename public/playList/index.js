@@ -6,18 +6,18 @@ const getElement = (query) => document.querySelector(query),
   createElement = (el) => document.createElement(el),
   video = getElement("video"),
   canvases = document.getElementsByTagName("canvas"),
-  list = getElement("#list"),
+  list = getElement("play-list"),
   sorter = ({ path: a }, { path: b }) => (a > b ? 1 : -1),
   playButton = getElement("svg-play"),
-  videoPath = (root, path, ext) => `./Saves/${root}/${path}.${ext}`;
+  videoPath = (root, path, ext) => `../../Saves/${root}/${path}.${ext}`;
 
 async function init() {
   const files = await getVideoList();
-  
+
   files.sort(sorter).forEach((file) => {
     const btn = createVideoLink(file);
 
-    list.appendChild(btn);
+    list.addLink(btn);
   });
 }
 
@@ -31,9 +31,9 @@ function createVideoLink({ root, path, ext }) {
     setTimeout(setBackgroundImage, 3000);
   });
 
-  btn.addEventListener("mouseenter", ({ target }) => {
-    target.appendChild(playButton);
-  });
+  btn.addEventListener("mouseenter", ({ target }) =>
+    target.appendChild(playButton)
+  );
 
   return btn;
 }
@@ -65,12 +65,7 @@ video.addEventListener("leavepictureinpicture", () => {
 });
 
 //autoplay
-video.addEventListener("ended", () => {
-  const nowPlaying = document.querySelector(".marquee"),
-    nextToPlay = nowPlaying.closest("button");
-
-  setTimeout(() => nextToPlay?.click(), 2000);
-});
+video.addEventListener("ended", () => setTimeout(() => list.playNext(), 2000));
 
 init();
 setInterval(setBackgroundImage, 15000);
