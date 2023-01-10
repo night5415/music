@@ -1,5 +1,5 @@
 const getVideoList = () => {
- return fetch("http://localhost:8081/VideoList")
+ return fetch("http://localhost:8081/Admin/GetPlaylist")
    .then((r) => r.json())
    .catch(console.dir);
 };

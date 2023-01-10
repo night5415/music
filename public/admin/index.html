@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="./index.js"></script>
     <title>Admin</title>
-</head>
-<body>
-    Hello World
-</body>
+  </head>
+  <body>
+    <a rel="noopener" href="http://localhost:8081/swagger/index.html" target="_blank">Swagger</a>
+    <fieldset>
+      <form id="fAdd">
+        <legend>Insert/Update</legend>
+        <label for="id">Id</label>
+        <input type="number" title="Id" placeholder="Id..." name="id">
+        <label for="root">Root</label>
+        <input placeholder="Root..." title="Root" type="text" name="root" />
+        <label for="path">Path</label>
+        <input placeholder="Path..." title="Path" type="text" name="path" />
+        <label for="ext">Ext</label>
+        <input placeholder="Extention..." title="Extension" type="text" name="ext" />
+        <label for="boxArt">BoxArt</label>
+        <input placeholder="Box Art..." title="Box Art" type="text" name="boxArt">
+        <input type="submit" value="Submit" />
+      </form>
+    </fieldset>
+    <fieldset>
+      <form id="fBulk">
+        <textarea title="Bulk Insert" placeholder="JSON Array"></textarea>
+        <input type="submit" value="Submit" />
+      </form>
+      <legend>Bulk Add</legend>
+    </fieldset>
+    <fieldset id="fList">
+
+    </fieldset>
+  </body>
 </html>

@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Api/bin/Debug/net6.0/Musiac.dll",
+            "program": "${workspaceFolder}/api/bin/Debug/net6.0/Musiac.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Api",
+            "cwd": "${workspaceFolder}/api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
@@ -30,7 +30,7 @@
             ],
             "program": "${workspaceFolder}\\main.js"
         },{
-            "type": "pwa-msedge",
+            "type": "msedge",
             "request":"launch",
             "name": "Launch edge against localhost",
             "url": "http://localhost:3000",

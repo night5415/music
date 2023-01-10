@@ -25,6 +25,7 @@ CardTemplate.innerHTML = `
       background-color: var(--primary);
       color: var(--white);
       background-size: cover;
+      /* background-image: url("../thumbnail/Jazz.jpg"); */
     }
 
     button div {

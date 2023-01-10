@@ -21,21 +21,25 @@ async function init() {
   });
 }
 
-function createVideoLink({ root, path, ext }) {
-  const btn = createElement("video-card");
-  btn.src = videoPath(root, path, ext);
-  btn.backgroundImage = `url('/thumbnail/${path}.jpg')`;
-  btn.path = path;
-  btn.addEventListener("onVideoClick", ({ detail }) => {
+function createVideoLink({ root, path, ext ,boxArt}) {
+  const card = createElement("video-card");
+ 
+  if (boxArt)
+    card.backgroundImage = `url("${boxArt}")`;
+  
+  card.src = videoPath(root, path, ext);
+  card.path = path;
+
+  card.addEventListener("onVideoClick", ({ detail }) => {
     video.src = detail;
     setTimeout(setBackgroundImage, 3000);
   });
 
-  btn.addEventListener("mouseenter", ({ target }) =>
+  card.addEventListener("mouseenter", ({ target }) =>
     target.appendChild(playButton)
   );
 
-  return btn;
+  return card;
 }
 
 function setBackgroundImage() {
