@@ -118,4 +118,33 @@ ListTemplate.innerHTML = `
 <div id="list"></div>
 `;
 
-export { CardTemplate, IconTemplate, ListTemplate };
+const ModalTemplate = document.createElement(template);
+ModalTemplate.innerHTML = `
+<style>
+  dialog {
+    border: none;
+    border-radius: 6px;
+    resize: both;
+    cursor: move;
+    position: absolute;
+    user-select: none;
+    padding: 0;
+    overflow: hidden;
+    max-width: 80vw;
+    max-height: 80vh;
+  }
+  video {
+    background-position: center center;
+    background-size: cover;
+    height: 101%;
+    margin: -1px 0px 0px -1px;
+    object-fit: cover;
+    width: 101%;
+  }
+</style>
+<dialog>
+   <video controls="false"></video>
+</dialog>
+`;
+
+export { CardTemplate, IconTemplate, ListTemplate, ModalTemplate };
