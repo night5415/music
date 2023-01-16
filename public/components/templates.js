@@ -122,27 +122,45 @@ const ModalTemplate = document.createElement(template);
 ModalTemplate.innerHTML = `
 <style>
   dialog {
+    --maxHeight: 50vw;
+    --width: 50vw;
+    --opacity: 0;
+    --top: 10px;
+    --left: 10px;
+    position: fixed;
+    top: var(--top);
+    left: var(--left);
+    width: var(--width);
+    max-height: var(--maxHeight);
     border: none;
     border-radius: 6px;
-    resize: both;
+    resize: vertical;
     cursor: move;
-    position: absolute;
+    margin: 0;
     user-select: none;
     padding: 0;
     overflow: hidden;
-    max-width: 80vw;
-    max-height: 80vh;
+    transition: opacity 500ms;
+    opacity: var(--opacity);
   }
   video {
+    position: relative;
     background-position: center center;
     background-size: cover;
-    height: 101%;
     margin: -1px 0px 0px -1px;
     object-fit: cover;
     width: 101%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 </style>
-<dialog>
+<dialog draggable="true">
+  <button>Close</button>
    <video controls="false"></video>
 </dialog>
 `;

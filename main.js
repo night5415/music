@@ -2,6 +2,10 @@ const express = require("express"),
   app = express(),
   port = 3000;
 
+app.get("/", (req, res) => { 
+  res.redirect(301, "/playlist/");
+});
+
 app.get(/Chill/, (req, res) => {
   const decoded = decodeURI(req.url);
   res.sendFile(`${__dirname.replace("Server", "")}${decoded}`);

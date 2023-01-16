@@ -2,9 +2,9 @@ import getVideoList from "./service.js";
 import createCard from "../components/card.js";
 
 const getElement = (query) => document.querySelector(query),
+  sorter = ({ path: a }, { path: b }) => (a > b ? 1 : -1),
   video = getElement("video-modal"),
   list = getElement("play-list"),
-  sorter = ({ path: a }, { path: b }) => (a > b ? 1 : -1),
   playButton = getElement("svg-play");
 
 async function init() {
@@ -23,7 +23,7 @@ async function init() {
     detail.appendChild(playButton);
   });
 
-  video.addEventListener("onVideoEnded", () => { 
+  video.addEventListener("onVideoEnded", () => {
     list.playNext();
   });
 }

@@ -7,24 +7,24 @@ class List extends HTMLElement {
     this._shadowRoot.appendChild(ListTemplate.content.cloneNode(true));
   }
 
-  get container() {
+  get #container() {
     return this._shadowRoot.querySelector(`div`);
   }
 
-  get links() {
+  get #links() {
     return Array.from(this._shadowRoot.querySelectorAll("video-card"));
   }
 
-  get playing() {
-    return this.links.find((l) => l.playing);
+  get #playing() {
+    return this.#links.find((l) => l.playing);
   }
 
   addLink(el) {
-    this.container.appendChild(el);
+    this.#container.appendChild(el);
   }
 
   playNext() {
-    const playing = this.playing,
+    const playing = this.#playing,
       next = playing.nextSibling;
     
     next.click();
