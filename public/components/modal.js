@@ -16,15 +16,31 @@ class Modal extends HTMLElement {
   }
 
   get #modal() {
-    return this._shadowRoot.querySelector(`dialog`);
+    return this.#getShadowElement(`dialog`);
   }
 
   get #video() {
-    return this._shadowRoot.querySelector(`video`);
+    return this.#getShadowElement(`video`);
   }
 
   get #close() {
-    return this._shadowRoot.querySelector(`button`);
+    return this.#getShadowElement(`close`);
+  }
+
+  get #next() {
+    return this.#getShadowElement(`next`);
+  }
+
+  get #rewind() {
+    return this.#getShadowElement(`rewind`);
+  }
+
+  get #pip() {
+    return this.#getShadowElement(`pip`);
+  }
+
+  get #volume() {
+    return this.#getShadowElement("volume");
   }
 
   show() {
@@ -61,6 +77,10 @@ class Modal extends HTMLElement {
     this.#setModalProperty(width, `${videoWidth}px`);
   }
 
+  #getShadowElement(id) {
+    return this._shadowRoot.getElementById(id);
+  }
+
   #onEnded() {
     this.dispatchEvent(
       new CustomEvent("onVideoEnded", {
@@ -82,8 +102,6 @@ class Modal extends HTMLElement {
 
     this.#setModalProperty(width, `${height / ratio}px`);
   }
-
-  #onMove(observer) {}
 
   #onDrag(e) {
     e.preventDefault();
@@ -111,6 +129,18 @@ class Modal extends HTMLElement {
     this.#video.pause();
   }
 
+  #onPip() {
+    this.#video.requestPictureInPicture();
+  }
+
+  #onVolumeChange(value = 0.5) {
+    this.#video.volume = +value / 100;
+  }
+
+  #setRuntime(current) {
+    this.#video.currentTime = current;
+  }
+
   connectedCallback() {
     this.#video.addEventListener("loadeddata", () => this.#onDataLoad());
     this.#video.addEventListener("leavepictureinpicture", () => this.show());
@@ -119,13 +149,14 @@ class Modal extends HTMLElement {
     this.#modal.addEventListener("drag", (e) => this.#onDrag(e));
     this.#modal.addEventListener("dragstart", (e) => this.#onDragStart(e));
     this.#close.addEventListener("click", () => this.#onClose());
+    this.#rewind.addEventListener("click", () => this.#setRuntime(0));
+    this.#pip.addEventListener("click", () => this.#onPip());
+    this.#next.addEventListener("click", () => this.#onEnded());
+    this.#volume.addEventListener("change", ({ target }) =>
+      this.#onVolumeChange(target?.value)
+    );
 
     new ResizeObserver((e) => this.#onResize(e)).observe(this.#modal);
-    new IntersectionObserver((e) => this.#onMove(e), {
-      root: document.querySelector("#scrollArea"),
-      rootMargin: "0px",
-      threshold: 1.0,
-    }).observe(this.#modal);
   }
 }
 

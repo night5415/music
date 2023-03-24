@@ -1,15 +1,8 @@
 const { env } = require("process"),
   fs = require("fs"),
   path = require("path"),
-  inetpub = `C:\\inetpub\\wwwroot\\Music\\Server\\public\\Saves`,
-  queue = `${env.HOMEPATH}\\videos\\saves`;
-
-function addToList(file, destination) {
-    fsreadFile("./public/data.js", (err, data) => {
-      if (err) throw err;
-      console.log(data);
-    });
-}
+  inetpub = `C:\\inetpub\\wwwroot\\Music\\Stage\\public\\Saves\\Chill`,
+  queue = `${env.HOMEPATH}\\Videos\\Saves`;
 
 function moveFile(file) {
   const current = path.join(queue, file),
@@ -20,10 +13,8 @@ function moveFile(file) {
       throw err;
     } else {
       console.log(`Successfully moved ${file}`);
-      addToList(file, destination);
     }
   });
 }
 
-//fs.readdir(queue, (_, files) => files.forEach(moveFile));
-console.dir(path);
+fs.readdir(queue, (_, files) => files.forEach(moveFile));

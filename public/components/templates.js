@@ -1,7 +1,7 @@
 const template = "template";
 
 const CardTemplate = document.createElement(template);
-CardTemplate.innerHTML = `
+CardTemplate.innerHTML = /*inline-template*/ `
 <style>
     button {
       display: flex;
@@ -25,7 +25,6 @@ CardTemplate.innerHTML = `
       background-color: var(--primary);
       color: var(--white);
       background-size: cover;
-      /* background-image: url("../thumbnail/Jazz.jpg"); */
     }
 
     button div {
@@ -73,7 +72,7 @@ CardTemplate.innerHTML = `
 `;
 
 const IconTemplate = document.createElement(template);
-IconTemplate.innerHTML = `
+IconTemplate.innerHTML = /*inline-template*/ `
 <style>
   div {
     background-color: transparent;
@@ -100,7 +99,7 @@ IconTemplate.innerHTML = `
 `;
 
 const ListTemplate = document.createElement(template);
-ListTemplate.innerHTML = `
+ListTemplate.innerHTML = /*inline-template*/ `
 <style>
   #list{
     display: flex;
@@ -119,7 +118,7 @@ ListTemplate.innerHTML = `
 `;
 
 const ModalTemplate = document.createElement(template);
-ModalTemplate.innerHTML = `
+ModalTemplate.innerHTML = /*inline-template*/ `
 <style>
   dialog {
     --maxHeight: 50vw;
@@ -132,6 +131,7 @@ ModalTemplate.innerHTML = `
     left: var(--left);
     width: var(--width);
     max-height: var(--maxHeight);
+    max-width: 100vw;
     border: none;
     border-radius: 6px;
     resize: vertical;
@@ -142,6 +142,7 @@ ModalTemplate.innerHTML = `
     overflow: hidden;
     transition: opacity 500ms;
     opacity: var(--opacity);
+    background-color: transparent;
   }
   video {
     position: relative;
@@ -153,15 +154,22 @@ ModalTemplate.innerHTML = `
     pointer-events: none;
     z-index: -1;
   }
-  button {
+  footer {
     position: absolute;
-    top: 0;
-    right: 0;
+    bottom: 0;
+   width: 100%;
   }
 </style>
-<dialog draggable="true">
-  <button>Close</button>
-   <video controls="false"></video>
+<dialog id="dialog" draggable="true">
+<footer>
+  <button id="close">Close</button>
+  <button id="pip">PiP</button>
+  <button id="next">Next</button>
+  <button id="rewind">Rewind</button>
+  <button id="previous">Previous</button>
+  <input type="range" id="volume" min="0" max="100" step="1" value="75">
+</footer>
+   <video id="video" controls="false"></video>
 </dialog>
 `;
 

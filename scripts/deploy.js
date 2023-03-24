@@ -10,14 +10,16 @@ const moveFolder = (folderName) => {
 }
 
 function moveFile(fileName, folderName) {
-  const ext = path.extname(fileName);
+  const ext = path.extname(fileName),
+    basePath = `${folderName}/${fileName}`,
+    iNetPubPath = `${inetpub}/${folderName}/${fileName}`;
 
   if (!ext) {
-    moveFolder(`${folderName}/${fileName}`);
+    moveFolder(basePath);
     return;
   }
 
-  fs.copyFile(`${folderName}/${fileName}`, `${inetpub}/${folderName}/${fileName}`, (err) => {
+  fs.copyFile(basePath, iNetPubPath, (err) => {
     if (err) throw err;
     console.log(`${fileName} was moved to ${inetpub}`);
   });

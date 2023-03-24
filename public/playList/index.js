@@ -1,4 +1,4 @@
-import getVideoList from "./service.js";
+import getVideoList from "../modules/service.js";
 import createCard from "../components/card.js";
 
 const getElement = (query) => document.querySelector(query),
