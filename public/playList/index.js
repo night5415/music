@@ -1,4 +1,4 @@
-import getVideoList from "../modules/service.js";
+import getVideoList, { updateBoxArt } from "../modules/service.js";
 import createCard from "../components/card.js";
 
 const getElement = (query) => document.querySelector(query),
@@ -15,16 +15,19 @@ async function init() {
     list.addLink(card);
   });
 
-  list.addEventListener("onVideoClick", ({ detail }) => {
-    video.setSource(detail);
-  });
+  list.addEventListener("onVideoClick", ({ detail }) =>
+    video.setSource(detail)
+  );
 
-  list.addEventListener("onCardHover", ({ detail }) => {
-    detail.appendChild(playButton);
-  });
+  list.addEventListener("onCardHover", ({ detail }) =>
+    detail.appendChild(playButton)
+  );
 
-  video.addEventListener("onVideoEnded", () => {
-    list.playNext();
+  video.addEventListener("onVideoEnded", () => list.playNext());
+
+  video.addEventListener("onSnapShot", ({ detail }) => {
+    const { id, blob } = detail;
+    updateBoxArt(id, blob);
   });
 }
 

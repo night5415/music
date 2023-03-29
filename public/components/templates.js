@@ -120,6 +120,9 @@ ListTemplate.innerHTML = /*inline-template*/ `
 const ModalTemplate = document.createElement(template);
 ModalTemplate.innerHTML = /*inline-template*/ `
 <style>
+  :picture-in-picture {
+    box-shadow: 0 0 0 5px red;
+  }
   dialog {
     --maxHeight: 50vw;
     --width: 50vw;
@@ -131,7 +134,7 @@ ModalTemplate.innerHTML = /*inline-template*/ `
     left: var(--left);
     width: var(--width);
     max-height: var(--maxHeight);
-    max-width: 100vw;
+    max-width: 50vw;
     border: none;
     border-radius: 6px;
     resize: vertical;
@@ -164,8 +167,7 @@ ModalTemplate.innerHTML = /*inline-template*/ `
 <footer>
   <button id="close">Close</button>
   <button id="pip">PiP</button>
-  <button id="next">Next</button>
-  <button id="rewind">Rewind</button>
+  <button id="snap">Snap</button>
   <button id="previous">Previous</button>
   <input type="range" id="volume" min="0" max="100" step="1" value="75">
 </footer>

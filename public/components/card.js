@@ -1,6 +1,29 @@
 import { CardTemplate } from "./templates.js";
 
 class VideoCard extends HTMLElement {
+  #src;
+  #fileId;
+  #path;
+
+  set src(src) {
+    this.#src = src;
+  }
+  set fileId(id) {
+    this.#fileId = id;
+  }
+  set path(path) {
+    this.#path = path;
+  }
+  get src() {
+    return this.#src;
+  }
+  get fileId() {
+    return this.#fileId;
+  }
+  get path() {
+    return this.#path;
+  }
+
   constructor() {
     super();
     this._playing = false;
@@ -35,7 +58,7 @@ class VideoCard extends HTMLElement {
         bubbles: true,
         cancelable: false,
         composed: true,
-        detail: this.src,
+        detail: { src: this.src, id: this.fileId },
       })
     );
 
@@ -66,7 +89,7 @@ class VideoCard extends HTMLElement {
 
 customElements.define("video-card", VideoCard);
 
-const createCard = ({ root, path, ext, boxArt }) => {
+const createCard = ({ id, root, path, ext, boxArt }) => {
   const card = document.createElement("video-card");
 
   if (boxArt) {
@@ -75,6 +98,7 @@ const createCard = ({ root, path, ext, boxArt }) => {
 
   card.src = `../../Saves/${root}/${path}.${ext}`;
   card.path = path;
+  card.fileId = id;
 
   return card;
 };

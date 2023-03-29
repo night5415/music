@@ -27,16 +27,12 @@ class Modal extends HTMLElement {
     return this.#getShadowElement(`close`);
   }
 
-  get #next() {
-    return this.#getShadowElement(`next`);
-  }
-
-  get #rewind() {
-    return this.#getShadowElement(`rewind`);
-  }
-
   get #pip() {
     return this.#getShadowElement(`pip`);
+  }
+
+  get #snap() {
+    return this.#getShadowElement(`snap`);
   }
 
   get #volume() {
@@ -57,12 +53,17 @@ class Modal extends HTMLElement {
     setTimeout(() => this.#modal.close(), 1000);
   }
 
-  setSource(src) {
+  setSource({ id, src }) {
+    this.fileId = id;
     this.#video.src = src;
   }
 
   play() {
     this.#video.play();
+  }
+
+  pause() {
+    this.#video.pause();
   }
 
   #setModalProperty(name, value) {
@@ -99,6 +100,10 @@ class Modal extends HTMLElement {
     const { height } = contentRect,
       { videoWidth, videoHeight } = this.#video,
       ratio = videoHeight / videoWidth;
+
+    if (isNaN(ratio)) {
+      return;
+    }
 
     this.#setModalProperty(width, `${height / ratio}px`);
   }
@@ -141,6 +146,24 @@ class Modal extends HTMLElement {
     this.#video.currentTime = current;
   }
 
+  #snapShot() {
+    const canvas = document.createElement("canvas"),
+      ctx = canvas.getContext("2d");
+
+    ctx.drawImage(this.#video, 0, 0, 300, 150);
+
+    canvas.toBlob((blob) => {
+      this.dispatchEvent(
+        new CustomEvent("onSnapShot", {
+          bubbles: true,
+          cancelable: false,
+          composed: true,
+          detail: {id: this.fileId, blob},
+        })
+      );
+    }, "image/jpg");
+  }
+
   connectedCallback() {
     this.#video.addEventListener("loadeddata", () => this.#onDataLoad());
     this.#video.addEventListener("leavepictureinpicture", () => this.show());
@@ -149,14 +172,17 @@ class Modal extends HTMLElement {
     this.#modal.addEventListener("drag", (e) => this.#onDrag(e));
     this.#modal.addEventListener("dragstart", (e) => this.#onDragStart(e));
     this.#close.addEventListener("click", () => this.#onClose());
-    this.#rewind.addEventListener("click", () => this.#setRuntime(0));
     this.#pip.addEventListener("click", () => this.#onPip());
-    this.#next.addEventListener("click", () => this.#onEnded());
+    this.#snap.addEventListener("click", () => this.#snapShot());
     this.#volume.addEventListener("change", ({ target }) =>
       this.#onVolumeChange(target?.value)
     );
 
     new ResizeObserver((e) => this.#onResize(e)).observe(this.#modal);
+
+    navigator.mediaSession.setActionHandler("play", () => this.play());
+    navigator.mediaSession.setActionHandler("pause", () => this.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", () => this.#onEnded());
   }
 }
 
