@@ -25,9 +25,11 @@ async function init() {
 
   video.addEventListener("onVideoEnded", () => list.playNext());
 
-  video.addEventListener("onSnapShot", ({ detail }) => {
-    const { id, blob } = detail;
-    updateBoxArt(id, blob);
+  video.addEventListener("onSnapShot", async ({ detail }) => {
+    const { id, file } = detail,
+      card = list.getCardById(id);
+    
+    card.backgroundImage = await updateBoxArt(id, file);
   });
 }
 

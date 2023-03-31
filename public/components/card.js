@@ -4,7 +4,9 @@ class VideoCard extends HTMLElement {
   #src;
   #fileId;
   #path;
-
+  #playing;
+  #shadowRoot;
+  
   set src(src) {
     this.#src = src;
   }
@@ -26,25 +28,25 @@ class VideoCard extends HTMLElement {
 
   constructor() {
     super();
-    this._playing = false;
-    this._shadowRoot = this.attachShadow({ mode: "open" });
-    this._shadowRoot.appendChild(CardTemplate.content.cloneNode(true));
+    this.#playing = false;
+    this.#shadowRoot = this.attachShadow({ mode: "open" });
+    this.#shadowRoot.appendChild(CardTemplate.content.cloneNode(true));
   }
 
   get button() {
-    return this._shadowRoot.querySelector(`button`);
+    return this.#shadowRoot.querySelector(`button`);
   }
 
   get playing() {
-    return this._playing;
+    return this.#playing;
   }
 
   get marquee() {
-    return this._shadowRoot.querySelector("div");
+    return this.#shadowRoot.querySelector("div");
   }
 
   stopMarquee() {
-    this._playing = false;
+    this.#playing = false;
     this.marquee.setAttribute("data-play", "false");
   }
 
@@ -62,7 +64,7 @@ class VideoCard extends HTMLElement {
       })
     );
 
-    this._playing = true;
+    this.#playing = true;
     this.marquee.setAttribute("data-play", "true");
     nowPlaying?.stopMarquee();
   }

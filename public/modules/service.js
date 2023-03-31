@@ -1,19 +1,22 @@
-const getVideoList = () => {
-  return fetch("http://localhost:8081/VideoList")
-    .then((r) => r.json())
-    .catch(console.dir);
+const getVideoList = async () => {
+  try {
+    const response = await fetch("https://localhost:7026/VideoList"),
+      json = await response.json();
+
+    return json ?? [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 
-const updateBoxArt = async (id, blob) => {
-  const formData = new FormData(),
-    file = new File([blob], `${id}.jpg`, {
-      type: "image/jpg",
-    });
+const updateBoxArt = async (id, file) => {
+  const formData = new FormData();
 
   formData.append("file", file);
 
   try {
-    const response = await fetch(`http://localhost:8081/boxart?id=${id}`, {
+    const response = await fetch(`https://localhost:7026/boxart?id=${id}`, {
       method: "POST",
       body: formData,
     });

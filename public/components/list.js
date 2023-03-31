@@ -23,6 +23,10 @@ class List extends HTMLElement {
     this.#container.appendChild(el);
   }
 
+  getCardById(id) {
+    return this.#links.find((x) => x.fileId === id);
+  }
+
   playNext() {
     const playing = this.#playing,
       next = playing.nextSibling;

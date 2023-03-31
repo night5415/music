@@ -1,4 +1,5 @@
 import { ModalTemplate } from "./templates.js";
+import { Signal, VideoSnapShot } from "../modules/utils.js";
 
 const opacity = "--opacity",
   width = "--width",
@@ -146,22 +147,20 @@ class Modal extends HTMLElement {
     this.#video.currentTime = current;
   }
 
-  #snapShot() {
-    const canvas = document.createElement("canvas"),
-      ctx = canvas.getContext("2d");
+  async #snapShot() {
+    const id = this.fileId,
+      file = await VideoSnapShot.snapShot(this.#video, id)
+        .drawImage()
+        .toImageFile();
 
-    ctx.drawImage(this.#video, 0, 0, 300, 150);
-
-    canvas.toBlob((blob) => {
-      this.dispatchEvent(
-        new CustomEvent("onSnapShot", {
-          bubbles: true,
-          cancelable: false,
-          composed: true,
-          detail: {id: this.fileId, blob},
-        })
-      );
-    }, "image/jpg");
+    const success = Signal.generate("onSnapShot")
+      .setDispatcher(this)
+      .setDetails({ id, file })
+      .dispatchEvent();
+    
+    if (success) { 
+      console.log("Should update img");
+    }
   }
 
   connectedCallback() {
