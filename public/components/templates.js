@@ -167,6 +167,7 @@ ModalTemplate.innerHTML = /*inline-template*/ `
 <footer>
   <button id="close">Close</button>
   <button id="pip">PiP</button>
+  <svg-camera></svg-camera>
   <button id="snap">Snap</button>
   <button id="previous">Previous</button>
   <input type="range" id="volume" min="0" max="100" step="1" value="75">
@@ -175,4 +176,17 @@ ModalTemplate.innerHTML = /*inline-template*/ `
 </dialog>
 `;
 
-export { CardTemplate, IconTemplate, ListTemplate, ModalTemplate };
+const CameraTemplate = document.createElement(template);
+CameraTemplate.innerHTML = /*inline-template*/ `
+<svg viewBox="0 0 122.88 90.78">
+<path d="M46.86.05H90.48l10,17.7H120.9a2,2,0,0,1,2,2V88.8a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V19.73a2,2,0,0,1,2-2h9.21V11.4H22.56v6.35H34.92L42.63,2.53c1.56-3.1.71-2.48,4.23-2.48ZM66.64,31.7A19.55,19.55,0,0,1,80.47,65.08l-.23.21A19.55,19.55,0,1,1,66.64,31.7ZM75.4,42.49a12.38,12.38,0,1,0-.16,17.7L75.4,60a12.38,12.38,0,0,0,0-17.52Zm34.67-16a5.9,5.9,0,1,1-5.9,5.9,5.9,5.9,0,0,1,5.9-5.9ZM66.65,21.72A29.53,29.53,0,1,1,37.12,51.25,29.53,29.53,0,0,1,66.65,21.72Z"/>
+</svg>
+`;
+
+export {
+  CardTemplate,
+  IconTemplate,
+  ListTemplate,
+  ModalTemplate,
+  CameraTemplate,
+};

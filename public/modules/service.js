@@ -1,6 +1,6 @@
 const getVideoList = async () => {
   try {
-    const response = await fetch("https://localhost:7026/VideoList"),
+    const response = await fetch("http://localhost:8081/VideoList"),
       json = await response.json();
 
     return json ?? [];
@@ -16,11 +16,12 @@ const updateBoxArt = async (id, file) => {
   formData.append("file", file);
 
   try {
-    const response = await fetch(`https://localhost:7026/boxart?id=${id}`, {
+    const response = await fetch(`http://localhost:8081/boxart?id=${id}`, {
       method: "POST",
       body: formData,
     });
-    return response;
+
+    return await response.text();
   } catch (error) {
     console.dir(error);
     return "../thumbnail/default.jpg";

@@ -6,22 +6,27 @@ class VideoCard extends HTMLElement {
   #path;
   #playing;
   #shadowRoot;
-  
+
   set src(src) {
     this.#src = src;
   }
+
   set fileId(id) {
     this.#fileId = id;
   }
+
   set path(path) {
     this.#path = path;
   }
+
   get src() {
     return this.#src;
   }
+
   get fileId() {
     return this.#fileId;
   }
+
   get path() {
     return this.#path;
   }
@@ -43,11 +48,6 @@ class VideoCard extends HTMLElement {
 
   get marquee() {
     return this.#shadowRoot.querySelector("div");
-  }
-
-  stopMarquee() {
-    this.#playing = false;
-    this.marquee.setAttribute("data-play", "false");
   }
 
   #onClick() {
@@ -87,9 +87,12 @@ class VideoCard extends HTMLElement {
     this.addEventListener("mouseover", this.#onHover);
     this.addEventListener("click", this.#onClick);
   }
-}
 
-customElements.define("video-card", VideoCard);
+  stopMarquee() {
+    this.#playing = false;
+    this.marquee.setAttribute("data-play", "false");
+  }
+}
 
 const createCard = ({ id, root, path, ext, boxArt }) => {
   const card = document.createElement("video-card");
@@ -105,4 +108,4 @@ const createCard = ({ id, root, path, ext, boxArt }) => {
   return card;
 };
 
-export { createCard as default };
+export { VideoCard as default, createCard };

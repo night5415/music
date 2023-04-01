@@ -157,8 +157,8 @@ class Modal extends HTMLElement {
       .setDispatcher(this)
       .setDetails({ id, file })
       .dispatchEvent();
-    
-    if (success) { 
+
+    if (success) {
       console.log("Should update img");
     }
   }
@@ -185,4 +185,5 @@ class Modal extends HTMLElement {
   }
 }
 
-customElements.define("video-modal", Modal);
+export { Modal as default };
+//customElements.define("video-modal", Modal);

@@ -34,5 +34,4 @@ class List extends HTMLElement {
     next.click();
   }
 }
-
-customElements.define("play-list", List);
+export { List as default };
